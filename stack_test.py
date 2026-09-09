@@ -11,7 +11,15 @@ def maxima(expr):
         text=True,
         capture_output=True
     )
-    return p.stdout.strip()
+    
+    lines = p.stdout.splitlines()
+
+    # Ladehinweise entfernen (;;; Loading ...)
+    clean = [ln for ln in lines if not ln.strip().startswith(";;;")]
+
+    # Letzte sinnvolle Zeile ist das Ergebnis
+    return clean[-1].strip() if clean else ""
+
 
 def parse_variables(block):
     """Parse Maxima variable definitions from questionvariables."""
