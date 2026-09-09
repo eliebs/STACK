@@ -24,4 +24,4 @@ jobs:
         run: pip install pyyaml
 
       - name: STACK Tests ausführen
-        run: python3 stack_test.py aufgabe.yml
+        run: python3 stack_test.py ableitung.yml
