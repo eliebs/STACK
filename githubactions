@@ -1,0 +1,27 @@
+name: STACK YAML Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v3
+
+      - name: Maxima installieren
+        run: sudo apt-get update && sudo apt-get install -y maxima
+
+      - name: Python installieren
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Abhängigkeiten installieren
+        run: pip install pyyaml
+
+      - name: STACK Tests ausführen
+        run: python3 stack_test.py aufgabe.yml
