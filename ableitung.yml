@@ -3,13 +3,8 @@ title: "Ableitung einer Potenzfunktion"
 
 # 1. CAS-Variablen (Maxima)
 questionvariables: |
-  /* Zufälliger Koeffizient zwischen 2 und 6 */
   a: rand(5) + 2;
-
-  /* Zufälliger Exponent zwischen 2 und 5 */
   b: rand(4) + 2;
-
-  /* Exakte Lösung berechnen */
   sol: a*b*x^(b-1);
 
 
