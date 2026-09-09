@@ -1,0 +1,58 @@
+# Metadaten der Aufgabe
+title: "Ableitung einer Potenzfunktion"
+
+# 1. CAS-Variablen (Maxima)
+questionvariables: |
+  a: rand(5) + 2;        /* Zufälliger Koeffizient zwischen 2 und 6 */
+  b: rand(4) + 2;        /* Zufälliger Exponent zwischen 2 und 5 */
+  sol: diff(a*x^b, x);   /* Exakte Lösung berechnen: a*b*x^(b-1) */
+
+# 2. Aufgabentext (CASText für Schüler)
+questiontext: |
+  <p>Geben Sie die erste Ableitung der Funktion \( f(x) = {@a*x^b@} \) an.</p>
+  <p>\( f'(x) = \) [[input:ans1]] [[validation:ans1]]</p>
+
+# 3. Eingabefeld (ans1)
+inputs:
+  ans1:
+    type: "algebraic"
+    tans: "sol"
+
+# 4. Feedback-Baum (PRT)
+prts:
+  prt1:
+    value: 1.0
+    nodes:
+      "0":
+        answertest: "AlgEquiv"
+        sans: "ans1"
+        tans: "sol"
+        truescore: 1.0
+        truenextnode: "-1"
+        truefeedback: "<p>Ausgezeichnet! Die Ableitung ist korrekt.</p>"
+        falsescore: 0.0
+        falsenextnode: "1"
+      "1":
+        answertest: "EqualCompsons"
+        sans: "ans1"
+        tans: "a*b*x^(b-1)"
+        truescore: 0.5
+        truenextnode: "-1"
+        truefeedback: "<p>Fast richtig – bitte fassen Sie die Faktoren noch zusammen!</p>"
+        falsescore: 0.0
+        falsenextnode: "-1"
+        falsefeedback: "<p>Leider nicht korrekt. Überprüfen Sie die Potenzregel.</p>"
+
+# 5. Automatische Testfälle für diese Aufgabe
+test_cases:
+  - name: "Vollständig korrekt"
+    studentanswers:
+      ans1: "a*b*x^(b-1)"   # Evaluieren mit Variablen
+    expected_score: 1.0
+    expected_feedback: "Ausgezeichnet"
+
+  - name: "Unvereinfacht"
+    studentanswers:
+      ans1: "a*b*x^(b-1)"   # Gibt Teilpunkte via Node 1
+    expected_score: 0.5
+    expected_feedback: "zusammen"
